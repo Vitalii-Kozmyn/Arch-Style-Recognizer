@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ArchVision</title>
+        <link rel="stylesheet" href="./styles/main.css">
+        <link rel="stylesheet" href="./styles/upload-section.css">
+        <link rel="stylesheet" href="./styles/about-section.css">
+        <link rel="stylesheet" href="./styles/results-section.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav__container">
+                <div class="nav__title">
+                    <div class="nav-logo">
+                        <img src="./images/asr-icon.png" alt="ArchVision Logo">
+                    </div>
+                    <h2>Architectural Style Recognizer</h2>
+                </div>
+                <div class="nav__buttons">
+                    <div id="analysis-btn" class="btn-analysis, active-option">
+                        <p>Analysis</p>
+                    </div>
+                    <div id="about-btn" class="btn-about, passive-option">
+                        <p>About the Model</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main>
+            <div class="disclaimer__container">
+                <img src="./images/disclaimer-icon.png" alt="disclaimer-icon">
+                <p class="disclaimer__container-text"><span>Disclaimer:</span> The model may make mistakes. The results are approximate - for accurate classification, consultation with an architectural specialist is recommended.</p>
+            </div>
+            <section class="upload-section section">
+                <div class="container">
+                    <div class="upload-container" id="uploadContainer">
+                        <input
+                            type="file"
+                            id="imageInput"
+                            accept="image/jpeg, image/png, image/webp"
+                            hidden
+                        >
+
+                        <div class="upload-content">
+                            <div class="upload-icon">
+                                <img src="./images/upl-icon.png" alt="upload-icon">
+                            </div>
+
+                            <h2>Upload a photo of the building</h2>
+
+                            <p>
+                                Drag and drop the image here or click to select. <br>
+                                JPG, PNG, and WEBP are supported.
+                            </p>
+
+                            <div class="upload-requirements">
+                                <span><span class="checkmark">✓</span> Exterior facade</span>
+                                <span><span class="checkmark">✓</span> Clear photo</span>
+                                <span><span class="checkmark">✓</span> Daylight lighting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+             <section class="about-section section hidden">
+                <div class="container">
+                    <div class="block main-card">
+                        <h2>Architectural Style Recognition Model</h2>
+                        <p>A model based on image analysis using artificial intelligence and computer vision methods.</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="block stat-card">
+                            <span class="label">ARCHITECTURE</span>
+                            <h3>ResNet-18</h3>
+                        </div>
+                        <div class="block stat-card">
+                            <span class="label">DATASET</span>
+                            <h3>10,113</h3>
+                            <p>images for training</p>
+                        </div>
+                        <div class="block stat-card">
+                            <span class="label">ACCURACY</span>
+                            <h3>74.24%</h3>
+                            <p>on the test set</p>
+                        </div>
+                        <div class="block stat-card">
+                            <span class="label">CLASSES</span>
+                            <h3>25</h3>
+                            <p>architectural styles</p>
+                        </div>
+                        <div class="block stat-card">
+                            <span class="label">UPDATED</span>
+                            <h3>05. 2026</h3>
+                            <p>latest version</p>
+                        </div>
+                        <div class="block stat-card">
+                            <span class="label">FRAMEWORK</span>
+                            <h3>PyTorch</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="results-section" class="results-section section hidden">
+                <div class="container">
+                    <div class="results-layout">
+                        <div class="result-image-card">
+                            <img id="uploaded-image" src="" alt="Uploaded Building">
+                            <button class="reset-btn" id="reset-btn" title="Upload new image">
+                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                            </button>
+                            <div class="filename-badge" id="filename-badge">image.jpg</div>
+                            <div class="scanner-container" id="scanner-container">
+                                <div class="scanner-line"></div>
+                                <div class="scanner-overlay"></div>
+                                <p class="loading-text">Analyzing image...</p>
+                            </div>
+                        </div>
+                        <div class="result-stats-card hidden" id="predictions-wrapper">
+                            <div class="stats-header">
+                                <div class="stats-header-left">
+                                    <span class="label-small">LEADING STYLE</span>
+                                    <div class="highest-match">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l-3.5 1.8 1.4-3.8L6 9.4l4.1-.3L12 5l1.9 4.1 4.1.3-3.9 3.6 1.4 3.8z"></path></svg>
+                                        Highest match
+                                    </div>
+                                </div>
+                                <div class="stats-header-right">
+                                    <div class="percent-badge" id="top-style-percent">0.0%</div>
+                                </div>
+                            </div>
+                            <h2 class="top-style-title" id="top-style-name">Style Name</h2>
+                            <p class="top-style-desc" id="top-style-desc">Style description goes here...</p>
+                            <div class="divider"></div>
+                            <div class="progress-section">
+                                <div class="progress-labels">
+                                    <span class="label-small">CONFIDENCE</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" id="top-style-progress"></div>
+                                </div>
+                            </div>
+                            <div class="secondary-matches">
+                                <div class="match-box">
+                                    <span class="match-name" id="match-2-name">-</span>
+                                    <span class="match-pct" id="match-2-pct">0%</span>
+                                </div>
+                                <div class="match-box">
+                                    <span class="match-name" id="match-3-name">-</span>
+                                    <span class="match-pct" id="match-3-pct">0%</span>
+                                </div>
+                                <div class="match-box">
+                                    <span class="match-name" id="match-4-name">-</span>
+                                    <span class="match-pct" id="match-4-pct">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detailed-analysis-card block hidden" id="all-styles-wrapper">
+                        <div class="detailed-header" id="toggle-details-btn">
+                            <div class="detailed-title">
+                                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                Detailed analysis — all 24 architectural styles
+                            </div>
+                            <div class="detailed-hint" id="detailed-hint-text">↓ click to expand</div>
+                        </div>
+                        
+                        <div class="styles-list hidden" id="styles-list">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="./js/switch.js"></script>
+        <script src="./js/upload.js"></script>
+    </body>
+</html>

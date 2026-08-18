@@ -1,0 +1,195 @@
+.about-section {
+    padding: 68px;
+}
+
+.block {
+    background: linear-gradient(
+        140deg, 
+        rgba(122, 18, 72, 0.3) 0%,     
+        rgba(147, 51, 234, 0.15) 50%,
+        rgba(122, 18, 72, 0.3) 100%
+    );
+    border: 1px solid var(--color-crimson-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border-color: rgba(180, 30, 80, 0.4);
+    box-shadow: 0 8px 32px rgba(200, 120, 170, 0.2); 
+}
+
+.block:hover {
+    box-shadow: 0 8px 32px rgba(147, 51, 234, 0.15); 
+}
+
+.main-card {
+    padding: 32px 40px;
+    max-width: 1014px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.main-card h2 {
+    margin: 0 0 12px 0;
+    font-size: 28px;
+    font-weight: 700;
+    color:  var(--color-pink-muted);
+    letter-spacing: 0.5px;
+}
+
+.main-card p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-crimson-text);
+    max-width: 800px;
+}
+
+.stats-grid {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    padding: 12px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    height: 100px;
+    box-shadow: 0 8px 32px rgba(200, 120, 170, 0.2); 
+    cursor: pointer;
+}
+
+.stat-card .label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-pink-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.stat-card h3 {
+    margin: 0 0 4px 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.matrix-card {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    cursor: default; 
+}
+
+.matrix-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.matrix-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.matrix-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: rgba(8, 0, 13, 0.6); 
+    border-radius: 12px;
+    padding: 16px 24px 24px 16px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-crimson-border);
+    /* Кастомний скролбар для краси */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-pink-muted) transparent;
+}
+
+.matrix-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.matrix-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-pink-muted);
+    border-radius: 4px;
+}
+
+.confusion-matrix {
+    border-collapse: collapse;
+    width: max-content;
+    margin: 0 auto;
+    font-family: monospace, sans-serif;
+    font-size: 11px;
+}
+
+.confusion-matrix th, 
+.confusion-matrix td {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, z-index 0.2s ease;
+}
+
+.confusion-matrix th {
+    color: var(--color-pink-muted);
+    font-weight: 600;
+    font-family: sans-serif;
+}
+
+.confusion-matrix .col-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    height: 140px;
+    padding-top: 10px;
+    border: none;
+    vertical-align: bottom;
+    text-align: left;
+}
+
+.confusion-matrix .row-label {
+    text-align: right;
+    padding-right: 12px;
+    white-space: nowrap;
+    border: none;
+}
+
+.confusion-matrix td {
+    color: #ffffff;
+    background-color: rgba(147, 51, 234, var(--val, 0));
+    position: relative;
+}
+
+.confusion-matrix td[data-val="0"] {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.confusion-matrix td:hover {
+    transform: scale(1.6);
+    z-index: 10;
+    background-color: var(--color-purple-dark);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: crosshair;
+}
