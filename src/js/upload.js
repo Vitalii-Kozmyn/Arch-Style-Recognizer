@@ -62,13 +62,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let session = null;
 
     async function loadModel() {
-        try {
-            session = await ort.InferenceSession.create('src/models/arch_vision_full.onnx');
-            console.log("Model loaded successfully!");
-        } catch (e) {
-            console.error("Model load error:", e);
+    const modelUrl = 'src/models/arch_vision_full.onnx';
+    const cacheName = 'arch-vision-cache-v1';
+
+    try {
+        const cache = await caches.open(cacheName);
+        
+        let response = await cache.match(modelUrl);
+        
+        if (!response) {
+            console.log("Модель не знайдена в кеші, завантажуємо з сервера...");
+            response = await fetch(modelUrl);
+            await cache.put(modelUrl, response.clone());
+        } else {
+            console.log("Модель завантажена з кешу браузера!");
         }
+
+        const modelArrayBuffer = await response.arrayBuffer();
+        session = await ort.InferenceSession.create(modelArrayBuffer);
+        console.log("Model loaded successfully!");
+        
+    } catch (e) {
+        console.error("Model load error:", e);
     }
+}
+
     loadModel();
 
     uploadInput.addEventListener('change', function(e) {
