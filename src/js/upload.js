@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 24 Classes + Short English descriptions
     const STYLE_DATA = {
         "Achaemenid architecture": "Grand monumental architecture with massive columns.",
         "American Foursquare architecture": "Simple, boxy design with a hipped roof and wide porch.",
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const predictionsWrapper = document.getElementById('predictions-wrapper');
     const allStylesWrapper = document.getElementById('all-styles-wrapper');
 
-    // Toggle Detailed Analysis
     const toggleDetailsBtn = document.getElementById('toggle-details-btn');
     const stylesList = document.getElementById('styles-list');
     const hintText = document.getElementById('detailed-hint-text');
@@ -50,14 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         hintText.innerText = stylesList.classList.contains('hidden') ? '↓ click to expand' : '↑ click to collapse';
     });
 
-    // Reset logic
     resetBtn.addEventListener('click', () => {
         resultsSection.classList.add('hidden');
         uploadSection.classList.remove('hidden');
-        uploadInput.value = ''; // clear input
+        uploadInput.value = '';
     });
 
-    // Upload Click
     const uploadContainer = document.getElementById('uploadContainer');
     if (uploadContainer) {
         uploadContainer.addEventListener('click', () => uploadInput.click());
@@ -67,8 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadModel() {
         try {
-            // Завантаження моделі (переконайтесь, що шлях правильний)
-            session = await ort.InferenceSession.create('./models/arch_vision_full.onnx');
+            session = await ort.InferenceSession.create('./src/models/arch_vision_full.onnx');
             console.log("Model loaded successfully!");
         } catch (e) {
             console.error("Model load error:", e);
@@ -80,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Показуємо ім'я файлу на бейджі
         filenameBadge.innerText = file.name;
 
         const reader = new FileReader();
@@ -93,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scannerContainer.style.display = 'flex';
             predictionsWrapper.classList.add('hidden');
             allStylesWrapper.classList.add('hidden');
-            stylesList.classList.add('hidden'); // collapse details on new upload
+            stylesList.classList.add('hidden');
             hintText.innerText = '↓ click to expand';
 
             uploadedImg.onload = () => {
@@ -182,32 +176,25 @@ document.addEventListener('DOMContentLoaded', () => {
         predictionsWrapper.classList.remove('hidden');
         allStylesWrapper.classList.remove('hidden');
 
-        // Clean Names (remove " architecture" for cleaner UI if desired, but here we keep full)
         const formatName = (name) => name.replace(" architecture", "");
 
-        // 1st Place (Main)
         document.getElementById('top-style-name').innerText = formatName(predictions[0].name);
         document.getElementById('top-style-desc').innerText = predictions[0].desc;
         document.getElementById('top-style-percent').innerText = predictions[0].prob.toFixed(1) + '%';
-        
-        // Progress bar animation
+
         setTimeout(() => {
             document.getElementById('top-style-progress').style.width = predictions[0].prob + '%';
         }, 100);
 
-        // 2nd Place
         document.getElementById('match-2-name').innerText = formatName(predictions[1].name);
         document.getElementById('match-2-pct').innerText = predictions[1].prob.toFixed(0) + '%';
         
-        // 3rd Place
         document.getElementById('match-3-name').innerText = formatName(predictions[2].name);
         document.getElementById('match-3-pct').innerText = predictions[2].prob.toFixed(0) + '%';
 
-        // 4th Place
         document.getElementById('match-4-name').innerText = formatName(predictions[3].name);
         document.getElementById('match-4-pct').innerText = predictions[3].prob.toFixed(0) + '%';
 
-        // All 24 Styles Table
         stylesList.innerHTML = '';
         predictions.forEach(item => {
             const row = document.createElement('div');
