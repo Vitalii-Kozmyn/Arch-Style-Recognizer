@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadModel() {
         try {
-            session = await ort.InferenceSession.create('./src/models/arch_vision_full.onnx');
+            session = await ort.InferenceSession.create('src/models/arch_vision_full.onnx');
             console.log("Model loaded successfully!");
         } catch (e) {
             console.error("Model load error:", e);
