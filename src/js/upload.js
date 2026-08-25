@@ -62,30 +62,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let session = null;
 
     async function loadModel() {
-    const modelUrl = 'src/models/arch_vision_full.onnx';
-    const cacheName = 'arch-vision-cache-v1';
+        const modelUrl = 'src/models/arch_vision_full.onnx';
 
-    try {
-        const cache = await caches.open(cacheName);
-        
-        let response = await cache.match(modelUrl);
-        
-        if (!response) {
-            console.log("Модель не знайдена в кеші, завантажуємо з сервера...");
-            response = await fetch(modelUrl);
-            await cache.put(modelUrl, response.clone());
-        } else {
-            console.log("Модель завантажена з кешу браузера!");
+        try {
+            alert("Model is loading...");
+            console.log("Model is loading...");
+
+            const response = await fetch(modelUrl);
+            const modelArrayBuffer = await response.arrayBuffer();
+
+            session = await ort.InferenceSession.create(modelArrayBuffer);
+
+            alert("Model loaded successfully!");
+            console.log("Model loaded successfully!");
+
+        } catch (e) {
+            alert("Model loading error!");
+            console.error("Model load error:", e);
         }
-
-        const modelArrayBuffer = await response.arrayBuffer();
-        session = await ort.InferenceSession.create(modelArrayBuffer);
-        console.log("Model loaded successfully!");
-        
-    } catch (e) {
-        console.error("Model load error:", e);
     }
-}
 
     loadModel();
 
