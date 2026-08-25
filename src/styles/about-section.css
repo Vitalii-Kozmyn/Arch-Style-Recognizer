@@ -193,3 +193,145 @@
     font-weight: bold;
     cursor: crosshair;
 }
+
+@media (max-width: 1200px) {
+    .about-section {
+        padding: 50px 40px;
+    }
+
+    .main-card {
+        max-width: none;
+    }
+
+    .stats-grid {
+        gap: 24px;
+    }
+
+    .stat-card {
+        width: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 40px 20px;
+    }
+
+    .main-card {
+        padding: 26px 24px;
+    }
+
+    .main-card h2 {
+        font-size: 24px;
+    }
+
+    .main-card p {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .stats-grid {
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .stat-card {
+        width: 100%;
+        height: auto;
+        min-height: 90px;
+        box-sizing: border-box;
+    }
+
+    .stat-card h3 {
+        font-size: 28px;
+    }
+
+    .matrix-card {
+        margin-top: 25px;
+        gap: 15px;
+    }
+
+    .matrix-card h3 {
+        font-size: 21px;
+    }
+
+    .matrix-wrapper {
+        padding: 12px 16px 18px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section {
+        padding: 30px 14px;
+    }
+
+    .main-card {
+        padding: 22px 18px;
+        border-radius: 14px;
+    }
+
+    .main-card h2 {
+        font-size: 21px;
+        margin-bottom: 10px;
+    }
+
+    .main-card p {
+        font-size: 13px;
+    }
+
+    .stats-grid {
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 12px 16px;
+        min-height: 82px;
+    }
+
+    .stat-card .label {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+
+    .stat-card h3 {
+        font-size: 25px;
+    }
+
+    .stat-card p {
+        font-size: 12px;
+    }
+
+    .matrix-card {
+        margin-top: 20px;
+    }
+
+    .matrix-card h3 {
+        font-size: 18px;
+    }
+
+    .matrix-wrapper {
+        padding: 10px 12px 15px 10px;
+    }
+
+    .confusion-matrix {
+        font-size: 9px;
+    }
+
+    .confusion-matrix th,
+    .confusion-matrix td {
+        width: 23px;
+        height: 23px;
+    }
+
+    .confusion-matrix .col-label {
+        height: 110px;
+    }
+
+    .confusion-matrix .row-label {
+        padding-right: 8px;
+    }
+
+    .confusion-matrix td:hover {
+        transform: scale(1.3);
+    }
+}
