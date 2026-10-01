@@ -1,0 +1,9 @@
+Architectural Style Recognizer
+
+Architectural Style Recognizer is a web application that uses artificial intelligence and computer vision to identify architectural styles from building photographs.
+
+Users can upload JPG, PNG, or WEBP images by selecting a file or dragging it into the upload area. The application processes the image locally in the browser using an ONNX model and displays the predicted architectural style, confidence score, leading matches, and a detailed analysis of all available styles.
+
+The recognition model is based on ResNet-18 and was trained with 10,113 architectural images. Its reported test accuracy is 74.24%. The interface also includes information about the model, dataset, framework, and application limitations.
+
+The project is built with HTML, CSS, and JavaScript, using ONNX Runtime Web for machine-learning inference.
